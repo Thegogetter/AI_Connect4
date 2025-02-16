@@ -1,0 +1,63 @@
+def game_over(self,game_state, player):
+        # Check for wins in rows
+        for row in range(6):
+            for col in range(4):
+                if all(game_state[row][col + i] == player for i in range(4)):
+                    return True
+
+        # Check for wins in columns
+        for col in range(7):
+            for row in range(3):
+                if all(game_state[row + i][col] == player for i in range(4)):
+                    return True
+
+        # Check for wins in diagonals (positive slope)
+        for row in range(3):
+            for col in range(4):
+                if all(game_state[row + i][col + i] == player for i in range(4)):
+                    return True
+
+        # Check for wins in diagonals (negative slope)
+        for row in range(3):
+            for col in range(3, 7):
+                if all(game_state[row + i][col - i] == player for i in range(4)):
+                    return True
+
+        return False
+
+def game_over(self,state,player):
+    for row in range(6):
+       for col in range(4):        
+           flag=True
+           for iter in range(4):
+               if(state[row][col+iter]!=player)
+                  flag=False
+           if flag==True:
+              return True       
+
+def get_next_states(self, state, player):
+        next_states = []
+        act=[3, 2, 4, 1, 5, 0, 6]
+        # Prioritize the middle column
+        for i in act:
+            if self.is_valid_move(state, i):
+                next_state = self.drop_coin(state, i, player)
+                next_states.append((next_state, i))
+
+        return next_states
+
+    def is_valid_move(self,state, col):
+        return state[0][col] == 0
+
+    def drop_coin(self,state, col,player):
+        new_state=copy.deepcopy(state)
+        for row in range(5, -1, -1): #runs a for loop from 5 to 0 , since bottom most row has value 0
+            if new_state[row][col] == 0:
+                new_state[row][col] = player  # Assuming player n is putting value n into the row
+                break
+        return new_state
+
+
+def minimax(self, state, depth, player, alpha=float('-inf'), beta=float('inf')):
+        if self.is_terminal(state) or depth==0:
+            return self.evaluate_state(state),None                      
